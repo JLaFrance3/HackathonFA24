@@ -1,12 +1,8 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-
-import javax.swing.BorderFactory;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.TransferHandler;
 
 /*
 * Class to represent throwable trash or recycling
@@ -14,23 +10,40 @@ import javax.swing.TransferHandler;
 public class ThrowableItem extends JLabel{
     private BinType type;
     private Point location;
-    private BufferedImage binImage;
+    private BufferedImage itemImage;
+    private Point initialClick;
 
     public ThrowableItem(BinType type) {
         super(type.name());
         this.type = type;
-        this.location = new Point(0, 0);
-        setTransferHandler(new TransferHandler("text"));
+        setLocation(new Point(0, 0));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setSize(new Dimension(100, 100));
         setOpaque(true);
         setBackground(Color.GRAY);
 
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                JComponent comp = (JComponent) evt.getSource();
-                TransferHandler handler = comp.getTransferHandler();
-                handler.exportAsDrag(comp, evt, TransferHandler.COPY);
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                initialClick = e.getPoint();
+                System.out.println("click");
+                getComponentAt(initialClick);
+            }
+        });
+
+        addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                // Get the location of the window
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+                System.out.println("drag");
+                // Determine how much the mouse moved since the initial click
+                int xMoved = e.getX() - initialClick.x;
+                int yMoved = e.getY() - initialClick.y;
+
+                // Move the object to this position
+                int X = thisX + xMoved;
+                int Y = thisY + yMoved;
+                setLocation(X, Y);
             }
         });
     }
@@ -40,9 +53,9 @@ public class ThrowableItem extends JLabel{
         setLocation(location);
     }
 
-    public ThrowableItem(BinType type, Point location, BufferedImage binImage) {
+    public ThrowableItem(BinType type, Point location, BufferedImage itemImage) {
         this(type, location);
-        this.binImage = binImage;
+        this.itemImage = itemImage;
     }
 
     public Point getLocation() {return location;}

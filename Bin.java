@@ -15,7 +15,6 @@ public class Bin extends JLabel {
         super(type.name() + " Bin");
         this.type = type;
         this.location = new Point(0, 0);
-        setTransferHandler(new TransferHandler("text"));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setSize(new Dimension(100, 100));
         setOpaque(true);
