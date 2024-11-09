@@ -52,7 +52,7 @@ public class RecyclingHero extends JFrame {
         add(scoreBoard);
 
         // Create bins panel
-        JPanel binsPanel = new JPanel();
+        ImagePanel binsPanel = new ImagePanel(grassImage);
         binsPanel.setLayout(null);
         binsPanel.setBounds(0, 50, 800, 550); // Set bounds for binsPanel
 
