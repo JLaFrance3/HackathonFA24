@@ -10,19 +10,19 @@ public class Bin extends JLabel {
     private Point location;
 
     public Bin(BinType type) {
-        super(type + " Bin", SwingConstants.CENTER);
+        super(type.name() + " Bin");
         this.type = type;
         this.location = new Point(0, 0);
         setTransferHandler(new TransferHandler("text"));
-        setPreferredSize(new Dimension(200, 200));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setSize(new Dimension(100, 100));
+        setOpaque(true);
+        setBackground(Color.CYAN);
     }
 
     public Bin(BinType type, Point location) {
-        super(type + " Bin", SwingConstants.CENTER);
-        this.type = type;
-        this.location = location;
-        setTransferHandler(new TransferHandler("text"));
-        setPreferredSize(new Dimension(200, 200));
+        this(type);
+        setLocation(location);
     }
 
     public Point getLocation() {return location;}
