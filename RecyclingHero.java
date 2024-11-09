@@ -15,7 +15,7 @@ public class RecyclingHero extends JFrame {
     
 
     
-    private ScoreBoard scoreBoard;
+    private ScoreBoard scoreBoard;    
 
     public RecyclingHero() {
         setTitle("Recycling Hero");
@@ -23,9 +23,9 @@ public class RecyclingHero extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-        // Initialize and add the ScoreBoard at the top of the window
+        // Initialize and add ScoreBoard panel at the bottom of the window
         scoreBoard = new ScoreBoard();
-        scoreBoard.setBounds(0, 0, 800, 50); // Set position and size of the scoreboard
+        scoreBoard.setBounds(0, 550, 800, 50); // Set position and size of ScoreBoard
         add(scoreBoard);
 
         try {
@@ -49,6 +49,7 @@ public class RecyclingHero extends JFrame {
         binsPanel.add(new Bin(BinType.METAL, new Point(400,110), metalImage));
         binsPanel.add(new Bin(BinType.PAPER, new Point(50, 300), paperImage));
         binsPanel.add(new Bin(BinType.TRASH, new Point(500, 200), trashImage));
+        
 
         // Add draggable items to binsPanel
         binsPanel.add(new ThrowableItem(BinType.GLASS, new Point(0, 400)));
@@ -65,7 +66,17 @@ public class RecyclingHero extends JFrame {
 
     private void endGame() {
         JOptionPane.showMessageDialog(this, "Game Over! Your score: " + scoreBoard.getScore());
-        System.exit(0);
+        resetGame(); // Call resetGame to restart instead of exiting
+    }
+
+    private void resetGame() {
+        // Reset score and timer
+        scoreBoard.reset(); // This method should reset score and timer in ScoreBoard
+
+        // Optionally, reset other components' states as needed, such as positions of items
+
+        // Restart the timer
+        scoreBoard.startTimer(this::endGame);
     }
 
     public static void main(String[] args) {
