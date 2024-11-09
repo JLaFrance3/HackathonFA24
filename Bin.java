@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /*
 * Class to represent a recycling or trash bin
@@ -8,6 +9,7 @@ public class Bin extends JLabel {
 
     private BinType type;
     private Point location;
+    private BufferedImage binImage;
 
     public Bin(BinType type) {
         super(type + " Bin", SwingConstants.CENTER);
@@ -15,10 +17,12 @@ public class Bin extends JLabel {
         this.location = new Point(0, 0);
         setTransferHandler(new TransferHandler("text"));
         setPreferredSize(new Dimension(200, 200));
+        this.binImage = binImage;
     }
 
-    public Bin(BinType type, Point location) {
+    public Bin(BinType type, Point location, BufferedImage binImage) {
         super(type + " Bin", SwingConstants.CENTER);
+        this.binImage = binImage;
         this.type = type;
         this.location = location;
         setTransferHandler(new TransferHandler("text"));
