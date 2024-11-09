@@ -24,12 +24,12 @@ public class RecyclingHero extends JFrame {
         setLayout(null);
 
         try {
-            glassImage = ImageIO.read(new File("Resources\\glassBin.png"));
-            plasticImage = ImageIO.read(new File("Resources\\plasticBin.png"));
-            metalImage = ImageIO.read(new File("Resources\\metalBin.png"));
-            paperImage = ImageIO.read(new File("Resources\\goodPaperBin.png"));
-            trashImage = ImageIO.read(new File("Resources\\trash bin.png"));
-            grassImage = ImageIO.read(new File("Resources\\coolGrass.png"));
+            glassImage = ImageIO.read(new File("Resources/glassBin.png"));
+            plasticImage = ImageIO.read(new File("Resources/plasticBin.png"));
+            metalImage = ImageIO.read(new File("Resources/metalBin.png"));
+            paperImage = ImageIO.read(new File("Resources/goodPaperBin.png"));
+            trashImage = ImageIO.read(new File("Resources/trash bin.png"));
+            grassImage = ImageIO.read(new File("Resources/coolGrass.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
