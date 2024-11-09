@@ -19,7 +19,7 @@ public class RecyclingHero extends JFrame {
 
     public RecyclingHero() {
         setTitle("Recycling Hero");
-        setSize(1600, 1600);
+        setSize(1024, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
@@ -48,13 +48,13 @@ public class RecyclingHero extends JFrame {
 
         // Initialize and add the ScoreBoard at the top of the window
         scoreBoard = new ScoreBoard();
-        scoreBoard.setBounds(0, 0, 800, 50); // Set position and size of the scoreboard
+        scoreBoard.setBounds(0, 0, this.getWidth(), 50); // Set position and size of the scoreboard
         add(scoreBoard);
 
         // Create bins panel
         JPanel binsPanel = new JPanel();
         binsPanel.setLayout(null);
-        binsPanel.setBounds(0, 50, 800, 550); // Set bounds for binsPanel
+        binsPanel.setBounds(0, 50, this.getWidth(), this.getHeight() - scoreBoard.getHeight()); // Set bounds for binsPanel
 
         // Add bins to binsPanel based on level data
         int binX = 0;
