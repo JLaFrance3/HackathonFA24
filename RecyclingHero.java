@@ -8,6 +8,7 @@ import java.io.IOException;
 public class RecyclingHero extends JFrame {
     private ScoreBoard scoreBoard;
     private BufferedImage glassImage = null;
+    private BufferedImage plasticImage = null;
 
     private LevelManager levelManager;
 
@@ -19,6 +20,7 @@ public class RecyclingHero extends JFrame {
 
         try {
             glassImage = ImageIO.read(new File("Resources/glassBin.png"));
+            plasticImage = ImageIO.read(new File("Resources/plasticBin.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,7 +75,17 @@ public class RecyclingHero extends JFrame {
 
     private void endGame() {
         JOptionPane.showMessageDialog(this, "Game Over! Your score: " + scoreBoard.getScore());
-        System.exit(0);
+        resetGame(); // Call resetGame to restart instead of exiting
+    }
+
+    private void resetGame() {
+        // Reset score and timer
+        scoreBoard.reset(); // This method should reset score and timer in ScoreBoard
+
+        // Optionally, reset other components' states as needed, such as positions of items
+
+        // Restart the timer
+        scoreBoard.startTimer(this::endGame);
     }
 
     //Add bin to random panel location

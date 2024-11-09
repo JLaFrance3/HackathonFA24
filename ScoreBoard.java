@@ -4,7 +4,7 @@ import java.awt.*;
 public class ScoreBoard extends JPanel {
 
     private int score = 0;
-    private int timeLeft = 60;
+    private int timeLeft = 5;
     private JLabel scoreLabel;
     private JLabel timerLabel;
     private Timer timer;
@@ -27,6 +27,11 @@ public class ScoreBoard extends JPanel {
     }
 
     public void startTimer(Runnable endGameCallback) {
+        // Stop any previous timer if it exists
+        if (timer != null) {
+            timer.stop();
+        }
+        
         timer = new Timer(1000, e -> {
             timeLeft--;
             timerLabel.setText("Time: " + timeLeft);
@@ -36,5 +41,18 @@ public class ScoreBoard extends JPanel {
             }
         });
         timer.start();
+    }
+
+    public void reset() {
+        // Reset score and timer
+        score = 0;
+        timeLeft = 60;
+        scoreLabel.setText("Score: 0");
+        timerLabel.setText("Time: " + timeLeft);
+
+        // Stop any active timer before starting a new game
+        if (timer != null) {
+            timer.stop();
+        }
     }
 }

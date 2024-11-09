@@ -32,11 +32,12 @@ public class Bin extends JLabel {
         this.binImage = binImage;
 
         // Set the position and size of the bin
-       // setBounds(location.x, location.y, 100, 100);  // Adjust size as needed
+        setBounds(location.x, location.y, 100, 100);  // Adjust size as needed
+
 
         if (binImage != null) {
             // Set image as the icon if available
-            setIcon(new ImageIcon(binImage));
+            setIcon(new ImageIcon(binImage.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
         } else {
             // If no image, display a color for differentiation
             setOpaque(true);
