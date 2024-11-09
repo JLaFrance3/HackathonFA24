@@ -11,6 +11,7 @@ import java.io.IOException;
 
 public class RecyclingHero extends JFrame {
     BufferedImage glassImage = null;
+    BufferedImage plasticImage = null;
     
     public RecyclingHero() {
         setTitle("Recycling Hero");
@@ -20,6 +21,7 @@ public class RecyclingHero extends JFrame {
 
         try {
             glassImage = ImageIO.read(new File("Resources\\glassBin.png"));
+            plasticImage = ImageIO.read(new File("Resources\\plasticBin.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,8 +30,8 @@ public class RecyclingHero extends JFrame {
         JPanel binsPanel = new JPanel();
         binsPanel.setLayout(null); // set icon and set border to null
         binsPanel.setBounds(0, 0, 800, 600);
-        binsPanel.add(new Bin(BinType.GLASS, new Point(0, 0), glassImage));
-        binsPanel.add(new Bin(BinType.PLASTIC, new Point(100, 10)));
+        binsPanel.add(new Bin(BinType.GLASS, new Point(200, 50), glassImage));
+        binsPanel.add(new Bin(BinType.PLASTIC, new Point(100, 10), plasticImage));
         binsPanel.add(new Bin(BinType.METAL, new Point(400,0)));
         binsPanel.add(new Bin(BinType.PAPER, new Point(50, 300)));
         binsPanel.add(new Bin(BinType.TRASH, new Point(500, 200)));
