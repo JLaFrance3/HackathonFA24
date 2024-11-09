@@ -130,8 +130,8 @@ public class RecyclingHero extends JFrame {
         return bin;
     }
 
-    private JLabel createThrowableItem(BinType type, Point location) {
-        ThrowableItem item = new ThrowableItem(type, location);
+    private JLabel createThrowableItem(BinType type, Point position) {
+        ThrowableItem item = new ThrowableItem(type, position);
         return item;
     }
 
