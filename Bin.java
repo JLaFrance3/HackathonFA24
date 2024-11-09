@@ -16,10 +16,10 @@ public class Bin extends JLabel {
         this.type = type;
         this.location = new Point(0, 0);
         setTransferHandler(new TransferHandler("text"));
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        setSize(new Dimension(100, 100));
+        setBorder(null);
+        setSize(new Dimension(200, 200));
         setOpaque(true);
-        setBackground(Color.CYAN);
+        setBackground(new Color(0, 0, 0, 0));
     }
 
     public Bin(BinType type, Point location) {
@@ -32,12 +32,11 @@ public class Bin extends JLabel {
         this.binImage = binImage;
 
         // Set the position and size of the bin
-        setBounds(location.x, location.y, 100, 100);  // Adjust size as needed
+        setBounds(location.x, location.y, 200, 200);  // Adjust size as needed
 
-
-        if (binImage != null) {
+        if (this.binImage != null) {
             // Set image as the icon if available
-            setIcon(new ImageIcon(binImage.getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+            setIcon(new ImageIcon(this.binImage.getScaledInstance(200, 200, Image.SCALE_DEFAULT)));
         } else {
             // If no image, display a color for differentiation
             setOpaque(true);

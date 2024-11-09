@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 public class RecyclingHero extends JFrame {
+    private ImagePanel binsPanel;
+    
     BufferedImage glassImage = null;
     BufferedImage plasticImage = null;
     BufferedImage metalImage = null;
@@ -29,7 +31,7 @@ public class RecyclingHero extends JFrame {
             plasticImage = ImageIO.read(new File("Resources/plasticBin.png"));
             metalImage = ImageIO.read(new File("Resources/metalBin.png"));
             paperImage = ImageIO.read(new File("Resources/goodPaperBin.png"));
-            trashImage = ImageIO.read(new File("Resources/trash bin.png"));
+            trashImage = ImageIO.read(new File("Resources/trashbin.png"));
             grassImage = ImageIO.read(new File("Resources/coolGrass.png"));
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,14 +55,14 @@ public class RecyclingHero extends JFrame {
         add(scoreBoard);
 
         // Create bins panel with grass background image
-        ImagePanel binsPanel = new ImagePanel(grassImage);
+        binsPanel = new ImagePanel(grassImage);
         binsPanel.setLayout(null);
         binsPanel.setBounds(0, 50, this.getWidth(), this.getHeight() - scoreBoard.getHeight());
 
         // Add bins to binsPanel at random positions without overlap
         Random random = new Random();
         for (BinType type : level.getItemTypes()) {
-            Point newLocation = generateRandomPosition(binsPanel, 100, 100); // 100x100 size for bins
+            Point newLocation = generateRandomPosition(binsPanel, 200, 200); // 100x100 size for bins
             JLabel bin = createBin(type, newLocation);
             binsPanel.add(bin);
         }
@@ -68,10 +70,9 @@ public class RecyclingHero extends JFrame {
         // Add draggable items to binsPanel at fixed positions
         for (int i = 0; i < level.getItemCount(); i++) {
             // Define fixed positions for items
-            int xPosition = 100 * (i % 5);  // Fixed horizontal pattern
-            int yPosition = 400 + (i / 5) * 120; // Vertical space between items
+            Point newLocation = generateRandomPosition(binsPanel, 200, 200);
             BinType type = level.getItemTypes()[i % level.getItemTypes().length];
-            JLabel item = createThrowableItem(type, new Point(xPosition, yPosition));
+            JLabel item = createThrowableItem(type, new Point(newLocation.x, newLocation.y));
             binsPanel.add(item);
         }
 
@@ -88,8 +89,8 @@ public class RecyclingHero extends JFrame {
         Point point;
         do {
             overlap = false;
-            int x = random.nextInt(container.getWidth() - width);
-            int y = random.nextInt(container.getHeight() - height-75) + 50; // Adjust for scoreboard offset
+            int x = random.nextInt(binsPanel.getWidth() - width);
+            int y = random.nextInt(Math.max(1, binsPanel.getHeight() - height - 50)) + 50;
             point = new Point(x, y);
 
             // Check for overlap with existing components (bins only)

@@ -76,8 +76,8 @@ public class ThrowableItem extends JLabel {
             @Override
             public void run() {
                 // Apply friction
-                velocity.x *= 0.99;
-                velocity.y *= 0.99;
+                velocity.x *= 0.98;
+                velocity.y *= 0.98;
 
                 // Update position
                 position.x += velocity.x;
