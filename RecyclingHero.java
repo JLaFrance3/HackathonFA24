@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 public class RecyclingHero extends JFrame {
@@ -13,7 +14,7 @@ public class RecyclingHero extends JFrame {
     BufferedImage paperImage = null;
     BufferedImage trashImage = null;
     BufferedImage grassImage = null;
-    
+
     private ScoreBoard scoreBoard;    
     private LevelManager levelManager;
 
@@ -56,26 +57,51 @@ public class RecyclingHero extends JFrame {
         binsPanel.setLayout(null);
         binsPanel.setBounds(0, 50, this.getWidth(), this.getHeight() - scoreBoard.getHeight());
 
-        // Add bins to binsPanel at random positions
+        // Add bins to binsPanel at random positions without overlap
         Random random = new Random();
         for (BinType type : level.getItemTypes()) {
-            int randomX = random.nextInt(binsPanel.getWidth() - 100); // Adjust 100 for bin width
-            int randomY = random.nextInt(binsPanel.getHeight() - 100) + 50; // Adjust for height, add 50 for scoreboard offset
-
-            JLabel bin = createBin(type, new Point(randomX, randomY));
+            Point newLocation = generateRandomPosition(binsPanel, 100, 100); // 100x100 size for bins
+            JLabel bin = createBin(type, newLocation);
             binsPanel.add(bin);
         }
 
-        // Add draggable items to binsPanel based on level data (position remains fixed)
+        // Add draggable items to binsPanel at fixed positions
         for (int i = 0; i < level.getItemCount(); i++) {
+            // Define fixed positions for items
+            int xPosition = 100 * (i % 5);  // Fixed horizontal pattern
+            int yPosition = 400 + (i / 5) * 120; // Vertical space between items
             BinType type = level.getItemTypes()[i % level.getItemTypes().length];
-            JLabel item = createThrowableItem(type, new Point(100 * (i % 5), 400)); // Fixed position for items
+            JLabel item = createThrowableItem(type, new Point(xPosition, yPosition));
             binsPanel.add(item);
         }
 
         add(binsPanel);
         revalidate();
         repaint();
+    }
+
+    // Generate random position while avoiding overlap (for bins only)
+    private Point generateRandomPosition(Container container, int width, int height) {
+        Random random = new Random();
+        int randomNumber = random.nextInt(1000) + 1;  // Generates a number between 1 and 1000
+        boolean overlap;
+        Point point;
+        do {
+            overlap = false;
+            int x = random.nextInt(container.getWidth() - width);
+            int y = random.nextInt(container.getHeight() - height-75) + 50; // Adjust for scoreboard offset
+            point = new Point(x, y);
+
+            // Check for overlap with existing components (bins only)
+            for (Component c : container.getComponents()) {
+                if (c.getBounds().intersects(new Rectangle(point.x, point.y, width, height))) {
+                    overlap = true;
+                    break;
+                }
+            }
+        } while (overlap);
+
+        return point;
     }
 
     private void endGame() {
