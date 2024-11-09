@@ -6,10 +6,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class RecyclingHero extends JFrame {
-    BufferedImage glassImage = null;
-    BufferedImage plasticImage = null;
-    
     private ScoreBoard scoreBoard;
+    private BufferedImage glassImage = null;
+    private BufferedImage plasticImage = null;
 
     public RecyclingHero() {
         setTitle("Recycling Hero");
@@ -17,25 +16,25 @@ public class RecyclingHero extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-        // Initialize and add the ScoreBoard at the top of the window
+        // Initialize and add ScoreBoard panel at the top of the window
         scoreBoard = new ScoreBoard();
-        scoreBoard.setBounds(0, 0, 800, 50); // Set position and size of the scoreboard
+        scoreBoard.setBounds(0, 0, 800, 50); // Set position and size of ScoreBoard
         add(scoreBoard);
 
         try {
-            glassImage = ImageIO.read(new File("Resources\\glassBin.png"));
-            plasticImage = ImageIO.read(new File("Resources\\plasticBin.png"));
+            glassImage = ImageIO.read(new File("Resources/glassBin.png"));
+            plasticImage = ImageIO.read(new File("Resources/plasticBin.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Create bins panel and position it below the scoreboard
+        // Create bins panel and position it below the ScoreBoard
         JPanel binsPanel = new JPanel();
-        binsPanel.setLayout(null); // set icon and set border to null
-        binsPanel.setBounds(0, 0, 800, 600);
+        binsPanel.setLayout(null);
+        binsPanel.setBounds(0, 50, 800, 500); // Position below the ScoreBoard
         binsPanel.add(new Bin(BinType.GLASS, new Point(200, 50), glassImage));
         binsPanel.add(new Bin(BinType.PLASTIC, new Point(100, 10), plasticImage));
-        binsPanel.add(new Bin(BinType.METAL, new Point(400,0)));
+        binsPanel.add(new Bin(BinType.METAL, new Point(400, 0)));
         binsPanel.add(new Bin(BinType.PAPER, new Point(50, 300)));
         binsPanel.add(new Bin(BinType.TRASH, new Point(500, 200)));
 
