@@ -1,36 +1,38 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.*;
-import java.awt.dnd.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class RecyclingHero extends JFrame {
-    BufferedImage glassImage = null;
-    
+    private ScoreBoard scoreBoard;
+    private BufferedImage glassImage = null;
+
     public RecyclingHero() {
         setTitle("Recycling Hero");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
+        // Initialize and add the ScoreBoard at the top of the window
+        scoreBoard = new ScoreBoard();
+        scoreBoard.setBounds(0, 0, 800, 50); // Set position and size of the scoreboard
+        add(scoreBoard);
+
         try {
-            glassImage = ImageIO.read(new File("Resources\\glassBin.png"));
+            glassImage = ImageIO.read(new File("Resources/glassBin.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Create bins
+        // Create bins panel and position it below the scoreboard
         JPanel binsPanel = new JPanel();
-        binsPanel.setLayout(null); // set icon and set border to null
-        binsPanel.setBounds(0, 0, 800, 600);
+        binsPanel.setLayout(null);
+        binsPanel.setBounds(0, 50, 800, 500); // Position below the ScoreBoard
         binsPanel.add(new Bin(BinType.GLASS, new Point(0, 0), glassImage));
         binsPanel.add(new Bin(BinType.PLASTIC, new Point(100, 10)));
-        binsPanel.add(new Bin(BinType.METAL, new Point(400,0)));
+        binsPanel.add(new Bin(BinType.METAL, new Point(400, 0)));
         binsPanel.add(new Bin(BinType.PAPER, new Point(50, 300)));
         binsPanel.add(new Bin(BinType.TRASH, new Point(500, 200)));
 
@@ -42,6 +44,14 @@ public class RecyclingHero extends JFrame {
         binsPanel.add(new ThrowableItem(BinType.TRASH, new Point(400, 400)));
 
         add(binsPanel);
+
+        // Start the game timer
+        scoreBoard.startTimer(this::endGame);
+    }
+
+    private void endGame() {
+        JOptionPane.showMessageDialog(this, "Game Over! Your score: " + scoreBoard.getScore());
+        System.exit(0);
     }
 
     public static void main(String[] args) {
