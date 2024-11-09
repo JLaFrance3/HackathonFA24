@@ -1,10 +1,10 @@
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class RecyclingHero extends JFrame {
     BufferedImage glassImage = null;
@@ -15,7 +15,6 @@ public class RecyclingHero extends JFrame {
     BufferedImage grassImage = null;
     
     private ScoreBoard scoreBoard;    
-
     private LevelManager levelManager;
 
     public RecyclingHero() {
@@ -49,32 +48,28 @@ public class RecyclingHero extends JFrame {
 
         // Initialize and add the ScoreBoard at the top of the window
         scoreBoard = new ScoreBoard();
-        scoreBoard.setBounds(0, 0, this.getWidth(), 50); // Set position and size of the scoreboard
+        scoreBoard.setBounds(0, 0, this.getWidth(), 50);
         add(scoreBoard);
 
-        // Create bins panel
+        // Create bins panel with grass background image
         ImagePanel binsPanel = new ImagePanel(grassImage);
         binsPanel.setLayout(null);
-        binsPanel.setBounds(0, 50, this.getWidth(), this.getHeight() - scoreBoard.getHeight()); // Set bounds for binsPanel
+        binsPanel.setBounds(0, 50, this.getWidth(), this.getHeight() - scoreBoard.getHeight());
 
-        // Add bins to binsPanel based on level data
-        int binX = 0;
-        int binY = 0;
+        // Add bins to binsPanel at random positions
+        Random random = new Random();
         for (BinType type : level.getItemTypes()) {
-            JLabel bin = createBin(type, new Point(binX, binY));
-            binsPanel.add(bin);
+            int randomX = random.nextInt(binsPanel.getWidth() - 100); // Adjust 100 for bin width
+            int randomY = random.nextInt(binsPanel.getHeight() - 100) + 50; // Adjust for height, add 50 for scoreboard offset
 
-            binX += 150; // Adjust spacing between bins
-            if (binX > binsPanel.getWidth()) { // Move to next row if needed
-                binX = 0;
-                binY += 150;
-            }
+            JLabel bin = createBin(type, new Point(randomX, randomY));
+            binsPanel.add(bin);
         }
 
-        // Add draggable items to binsPanel based on level data
+        // Add draggable items to binsPanel based on level data (position remains fixed)
         for (int i = 0; i < level.getItemCount(); i++) {
             BinType type = level.getItemTypes()[i % level.getItemTypes().length];
-            JLabel item = createThrowableItem(type, new Point(100 * (i % 5), 400));
+            JLabel item = createThrowableItem(type, new Point(100 * (i % 5), 400)); // Fixed position for items
             binsPanel.add(item);
         }
 
@@ -85,20 +80,14 @@ public class RecyclingHero extends JFrame {
 
     private void endGame() {
         JOptionPane.showMessageDialog(this, "Game Over! Your score: " + scoreBoard.getScore());
-        resetGame(); // Call resetGame to restart instead of exiting
+        resetGame();
     }
 
     private void resetGame() {
-        // Reset score and timer
-        scoreBoard.reset(); // This method should reset score and timer in ScoreBoard
-
-        // Optionally, reset other components' states as needed, such as positions of items
-
-        // Restart the timer
+        scoreBoard.reset();
         scoreBoard.startTimer(this::endGame);
     }
 
-    //Add bin to random panel location
     private JLabel createBin(BinType type, Point location) {
         BufferedImage binImage;
         switch (type) {
@@ -111,11 +100,10 @@ public class RecyclingHero extends JFrame {
         }
 
         Bin bin = new Bin(type, location, binImage);
-        bin.setOpaque(true); // Ensure the background color is visible
+        bin.setOpaque(true);
         return bin;
     }
 
-    //Add item to random panel location
     private JLabel createThrowableItem(BinType type, Point location) {
         ThrowableItem item = new ThrowableItem(type, location);
         return item;

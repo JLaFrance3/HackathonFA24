@@ -11,8 +11,18 @@ public class ScoreBoard extends JPanel {
 
     public ScoreBoard() {
         setLayout(new FlowLayout());
+
+        // Create and customize the score label
         scoreLabel = new JLabel("Score: 0");
+        scoreLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set font, style, and size
+        scoreLabel.setForeground(Color.BLUE); // Set text color to blue
+
+        // Create and customize the timer label
         timerLabel = new JLabel("Time: " + timeLeft);
+        timerLabel.setFont(new Font("Arial", Font.PLAIN, 24)); // Set font, style, and size
+        timerLabel.setForeground(Color.RED); // Set text color to red
+
+        // Add labels to the panel
         add(scoreLabel);
         add(timerLabel);
     }
