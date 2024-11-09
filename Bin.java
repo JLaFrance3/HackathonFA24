@@ -30,6 +30,21 @@ public class Bin extends JLabel {
     public Bin(BinType type, Point location, BufferedImage binImage) {
         this(type, location);
         this.binImage = binImage;
+
+        // Set the position and size of the bin
+       // setBounds(location.x, location.y, 100, 100);  // Adjust size as needed
+
+        if (binImage != null) {
+            // Set image as the icon if available
+            setIcon(new ImageIcon(binImage));
+        } else {
+            // If no image, display a color for differentiation
+            setOpaque(true);
+            setBackground(Color.LIGHT_GRAY);
+            setText(type.toString());
+            setHorizontalAlignment(SwingConstants.CENTER);
+            setVerticalAlignment(SwingConstants.CENTER);
+        }
     }
 
     public Point getLocation() {return location;}
