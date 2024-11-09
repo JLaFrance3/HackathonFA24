@@ -16,13 +16,15 @@ public class RecyclingHero extends JFrame {
         // Create bins
         JPanel binsPanel = new JPanel();
         binsPanel.setLayout(new GridLayout(1, 3));
-        binsPanel.add(createBin("Paper"));
-        binsPanel.add(createBin("Plastic"));
-        binsPanel.add(createBin("Glass"));
+        binsPanel.add(new Bin(BinType.GLASS));
+        binsPanel.add(new Bin(BinType.PLASTIC));
+        binsPanel.add(new Bin(BinType.METAL));
+        binsPanel.add(new Bin(BinType.PAPER));
+        binsPanel.add(new Bin(BinType.TRASH));
 
         // Create draggable items
         JPanel itemsPanel = new JPanel();
-        itemsPanel.setLayout(new FlowLayout());
+        itemsPanel.setLayout(null);
         itemsPanel.add(createDraggableItem("Paper"));
         itemsPanel.add(createDraggableItem("Plastic"));
         itemsPanel.add(createDraggableItem("Glass"));
