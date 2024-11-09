@@ -16,14 +16,14 @@ public class LevelManager {
 
     private void loadLevels() {
         // Example levels
-        levels.add(new Level(1, 5, 60, new BinType[]{BinType.GLASS, BinType.TRASH}));
-        levels.add(new Level(2, 10, 90, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC}));
-        levels.add(new Level(3, 15, 120, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL}));
-        levels.add(new Level(3, 15, 120, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL,
+        levels.add(new Level(1, 5, 20, new BinType[]{BinType.GLASS, BinType.TRASH}));
+        levels.add(new Level(2, 10, 30, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC}));
+        levels.add(new Level(3, 15, 40, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL}));
+        levels.add(new Level(3, 15, 50, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL,
             BinType.PAPER}));
-        levels.add(new Level(3, 20, 120, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL,
+        levels.add(new Level(3, 20, 50, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL,
             BinType.PAPER}));
-        levels.add(new Level(3, 25, 120, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL,
+        levels.add(new Level(3, 25, 50, new BinType[]{BinType.GLASS, BinType.TRASH, BinType.PLASTIC, BinType.METAL,
             BinType.PAPER}));
     }
 
