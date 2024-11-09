@@ -1,8 +1,3 @@
-
-/*
-* Class to represent a recycling or trash bin
-*/
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -13,6 +8,9 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
 
+/*
+* Class to represent throwable trash or recycling
+*/
 public class ThrowableItem extends JLabel{
     private BinType type;
     private Point location;
