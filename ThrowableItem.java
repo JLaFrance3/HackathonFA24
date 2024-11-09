@@ -9,14 +9,16 @@ import java.awt.image.BufferedImage;
 */
 public class ThrowableItem extends JLabel{
     private BinType type;
-    private Point location;
+    private Point position;
     private BufferedImage itemImage;
     private Point initialClick;
 
     public ThrowableItem(BinType type) {
         super(type.name());
         this.type = type;
-        setLocation(new Point(0, 0));
+        this.position = new Point(0, 0);
+        setLocation(position);
+        setTransferHandler(new TransferHandler("text"));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setSize(new Dimension(100, 100));
         setOpaque(true);
@@ -43,25 +45,28 @@ public class ThrowableItem extends JLabel{
                 // Move the object to this position
                 int X = thisX + xMoved;
                 int Y = thisY + yMoved;
-                setLocation(X, Y);
+                
+                position = new Point(X, Y);
+                setLocation(position);
             }
         });
     }
 
-    public ThrowableItem(BinType type, Point location) {
+    public ThrowableItem(BinType type, Point position) {
         this(type);
-        setLocation(location);
+        this.position = position;
+        setLocation(position);
     }
 
-    public ThrowableItem(BinType type, Point location, BufferedImage itemImage) {
-        this(type, location);
+    public ThrowableItem(BinType type, Point position, BufferedImage itemImage) {
+        this(type, position);
         this.itemImage = itemImage;
     }
 
-    public Point getLocation() {return location;}
-    public void setLocation(Point location) {this.location = location;}
-    public int getX() {return location.x;}
-    public int getY() {return location.y;}
+    public Point getPosition() {return position;}
+    public void setPosition(Point position) {this.position = position;}
+    public int getX() {return position.x;}
+    public int getY() {return position.y;}
     public BinType getType() {return type;}
     public void setType(BinType type) {this.type = type;}
 }
