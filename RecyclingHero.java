@@ -6,21 +6,30 @@ import java.io.File;
 import java.io.IOException;
 
 public class RecyclingHero extends JFrame {
-    private ScoreBoard scoreBoard;
-    private BufferedImage glassImage = null;
-    private BufferedImage plasticImage = null;
+    BufferedImage glassImage = null;
+    BufferedImage plasticImage = null;
+    BufferedImage metalImage = null;
+    BufferedImage paperImage = null;
+    BufferedImage trashImage = null;
+    BufferedImage grassImage = null;
+    
+    private ScoreBoard scoreBoard;    
 
     private LevelManager levelManager;
 
     public RecyclingHero() {
         setTitle("Recycling Hero");
-        setSize(800, 600);
+        setSize(1600, 1600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
         try {
-            glassImage = ImageIO.read(new File("Resources/glassBin.png"));
-            plasticImage = ImageIO.read(new File("Resources/plasticBin.png"));
+            glassImage = ImageIO.read(new File("Resources\\glassBin.png"));
+            plasticImage = ImageIO.read(new File("Resources\\plasticBin.png"));
+            metalImage = ImageIO.read(new File("Resources\\metalBin.png"));
+            paperImage = ImageIO.read(new File("Resources\\goodPaperBin.png"));
+            trashImage = ImageIO.read(new File("Resources\\trash bin.png"));
+            grassImage = ImageIO.read(new File("Resources\\coolGrass.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,24 +99,17 @@ public class RecyclingHero extends JFrame {
 
     //Add bin to random panel location
     private JLabel createBin(BinType type, Point location) {
-        Bin bin = new Bin(type, location);
+        BufferedImage binImage;
         switch (type) {
-            case GLASS:
-                bin.setBackground(Color.CYAN);
-                break;
-            case PLASTIC:
-                bin.setBackground(Color.YELLOW);
-                break;
-            case METAL:
-                bin.setBackground(Color.GRAY);
-                break;
-            case PAPER:
-                bin.setBackground(Color.WHITE);
-                break;
-            case TRASH:
-                bin.setBackground(Color.BLACK);
-                break;
+            case GLASS -> binImage = glassImage;
+            case METAL -> binImage = metalImage;
+            case PAPER -> binImage = paperImage;
+            case PLASTIC -> binImage = plasticImage;
+            case TRASH -> binImage = trashImage;
+            default -> throw new IllegalArgumentException("Unexpected value: " + type);
         }
+
+        Bin bin = new Bin(type, location, binImage);
         bin.setOpaque(true); // Ensure the background color is visible
         return bin;
     }
